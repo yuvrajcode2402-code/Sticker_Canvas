@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Sticker_Canvas/static/css/main.e6c13ad2.css",
+    "main.js": "/Sticker_Canvas/static/js/main.1fddbbfa.js",
+    "index.html": "/Sticker_Canvas/index.html",
+    "main.e6c13ad2.css.map": "/Sticker_Canvas/static/css/main.e6c13ad2.css.map",
+    "main.1fddbbfa.js.map": "/Sticker_Canvas/static/js/main.1fddbbfa.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.1fddbbfa.js"
+  ]
+}
