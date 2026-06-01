@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Text } from 'react-konva';
 
 const STICKERS = ['🔥', '⭐', '🎉'];
@@ -6,13 +6,24 @@ const STICKERS = ['🔥', '⭐', '🎉'];
 function App() {
   const [stickers, setStickers] = useState([]);
   const stageRef = useRef(null);
+  const [size, setSize] = useState({ width: 600, height: 400 });
+
+  useEffect(() => {
+    function updateSize() {
+      const w = Math.min(window.innerWidth - 40, 600);
+      setSize({ width: w, height: Math.round(w * 0.66) });
+    }
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   function addSticker(emoji) {
     setStickers([...stickers, {
       id: Date.now(),
       emoji: emoji,
-      x: 100,
-      y: 100,
+      x: Math.random() * (size.width - 60),
+      y: Math.random() * (size.height - 60),
     }]);
   }
 
@@ -31,10 +42,10 @@ function App() {
   }
 
   return (
-    <div style={{ display: 'flex', gap: '20px', padding: '20px' }}>
+    <div style={{ padding: '20px' }}>
 
-      {/* Left: Sticker Buttons + Download */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      {/* Sticker Buttons Row */}
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
         {STICKERS.map((emoji) => (
           <button key={emoji} onClick={() => addSticker(emoji)}
             style={{ fontSize: '30px', cursor: 'pointer' }}>
@@ -42,13 +53,14 @@ function App() {
           </button>
         ))}
         <button onClick={downloadCanvas}
-          style={{ marginTop: '20px', padding: '8px', cursor: 'pointer' }}>
+          style={{ padding: '8px 16px', cursor: 'pointer', fontSize: '16px' }}>
           ⬇️ Download
         </button>
       </div>
 
-      {/* Right: Canvas */}
-      <Stage ref={stageRef} width={600} height={400} style={{ border: '2px solid black' }}>
+      {/* Canvas */}
+      <Stage ref={stageRef} width={size.width} height={size.height}
+        style={{ border: '2px solid black' }}>
         <Layer>
           {stickers.map((s) => (
             <Text
