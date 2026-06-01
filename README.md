@@ -15,7 +15,7 @@ npm i
 npm start
 ```
 
-Opens at http://localhost:3000
+Opens at [http://localhost:3000](https://yuvrajcode2402-code.github.io/Sticker_Canvas)
 
 ## Tech Used
 - React (functional components + hooks)
